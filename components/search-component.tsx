@@ -1,16 +1,23 @@
 "use client";
 
 import data from "@/app/data.json";
-import { useState } from "react";
+import { useDebounceState } from "@/lib/use-debounce-state";
 import { Card, CardContent } from "./ui/card";
 import { Input } from "./ui/input";
 
 export default function SearchComponent() {
-  const [results, setResults] = useState<string[]>(data);
+  const [results, setResults] = useDebounceState<string[]>(data, 500);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // Mantegh e jostojo ra inja anjam dahid.
-    return;
+    const value = event.target.value;
+    if (!value) {
+      setResults(data);
+      return;
+    }
+    const results = data.filter((result) =>
+      result.toLowerCase().includes(value.toLowerCase())
+    );
+    setResults(results);
   };
 
   return (
