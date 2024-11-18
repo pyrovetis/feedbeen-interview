@@ -7,11 +7,24 @@ import { Input } from "./ui/input";
 
 export default function SearchComponent() {
   const [results, setResults] = useState<string[]>(data);
+  const [input, setInput] = useState("");
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     // Mantegh e jostojo ra inja anjam dahid.
-    return;
+
+    setInput(event.currentTarget.value);
   };
+
+  const handleDebounce = () => {
+    const form = e.currentTarget.value;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      setInput(form);
+    }, 1000);
+
+    handleFilter();
+  };
+  useEffect(() => handleDebounce(), [input]);
 
   return (
     <div className="space-y-4">
@@ -19,6 +32,7 @@ export default function SearchComponent() {
         <Input
           type="search"
           onChange={handleSearch}
+          value={input}
           placeholder="Search..."
           className="pr-10"
         />
