@@ -7,11 +7,20 @@ import { Input } from "./ui/input";
 
 export default function SearchComponent() {
   const [results, setResults] = useState<string[]>(data);
+  console.log(results, "aa");
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // Mantegh e jostojo ra inja anjam dahid.
-    return;
+    console.log(event.target.value, "omid1");
+    const resultsAfterSearch = data.filter((i) =>
+      i.includes(event.target.value)
+    );
+    setResults(resultsAfterSearch);
+    // setResults(results.includes(event.target.value));
   };
+
+  // const debouncedResults = useMemo(() => {
+  //   return debouce(handleSearch, 300);
+  // }, []);
 
   return (
     <div className="space-y-4">
