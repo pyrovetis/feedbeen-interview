@@ -10,8 +10,11 @@ export default function SearchComponent() {
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     // Mantegh e jostojo ra inja anjam dahid.
-    return;
+    setResults(event.target.value);
   };
+  const filterResult = results.filter((item) =>
+    item.toLocaleLowerCase().includes(results?.toLocaleString())
+  );
 
   return (
     <div className="space-y-4">
@@ -21,12 +24,13 @@ export default function SearchComponent() {
           onChange={handleSearch}
           placeholder="Search..."
           className="pr-10"
+          value={results}
         />
       </div>
       <Card className="overflow-hidden">
         <CardContent className="p-0">
           <ul className="divide-y">
-            {results.map((result, index) => (
+            {filterResult.map((result, index) => (
               <li
                 key={index}
                 className="px-4 py-2 hover:bg-muted transition-colors"
