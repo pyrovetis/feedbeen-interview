@@ -10,7 +10,14 @@ export default function SearchComponent() {
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     // Mantegh e jostojo ra inja anjam dahid.
-    return;
+    const inputValue = event.target.value;
+    setResults(() => {
+      if (inputValue === "") {
+        return results;
+      } else {
+        return results.filter((item) => item.includes(inputValue));
+      }
+    });
   };
 
   return (
